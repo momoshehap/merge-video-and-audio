@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_video_info/flutter_video_info.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:gallery_saver/gallery_saver.dart';
+// import 'package:gallery_saver/gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 
 class CameraScreen extends StatefulWidget {
@@ -768,10 +768,10 @@ class _CameraScreenState extends State<CameraScreen> {
   }
 
   saveVideo(String? recordedVideo) async {
-    GallerySaver.saveVideo(recordedVideo).then((String path) {
-      setState(() {
-        print('video saved!');
-      });
-    });
+    // GallerySaver.saveVideo(recordedVideo).then((String path) {
+    //   setState(() {
+    //     print('video saved!');
+    //   });
+    // });
   }
 }
