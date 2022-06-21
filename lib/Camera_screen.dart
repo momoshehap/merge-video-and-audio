@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_video_info/flutter_video_info.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-// import 'package:gallery_saver/gallery_saver.dart';
+import 'package:gallery_saver/gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 
 class CameraScreen extends StatefulWidget {
@@ -508,8 +508,8 @@ class _CameraScreenState extends State<CameraScreen> {
                                   children: [
                                     InkWell(
                                         onTap: saveVideo(audioPath == ""
-                                            ? videoPath
-                                            : videoaudioPath),
+                                            ? videoPath!
+                                            : videoaudioPath!),
                                         child: Container(
                                             width: 125,
                                             padding: const EdgeInsets.all(8),
@@ -611,7 +611,7 @@ class _CameraScreenState extends State<CameraScreen> {
     }
     final Directory extDir = await getApplicationDocumentsDirectory();
     final String dirPath = '${extDir.path}/Videos';
-    await new Directory(dirPath).create(recursive: true);
+    await Directory(dirPath).create(recursive: true);
     final String filePath = '$dirPath/${timestamp()}.mp4';
 
     print("path $filePath");
@@ -695,8 +695,8 @@ class _CameraScreenState extends State<CameraScreen> {
   }
 
   void startTimer() {
-    const oneSec = const Duration(seconds: 1);
-    _timer = new Timer.periodic(
+    const oneSec = Duration(seconds: 1);
+    _timer = Timer.periodic(
       oneSec,
       (Timer timer) => setState(
         () {
@@ -740,11 +740,9 @@ class _CameraScreenState extends State<CameraScreen> {
             return Future.value(true);
           },
           child: CupertinoAlertDialog(
-            content: Container(
-              child: Text(
-                text,
-                style: const TextStyle(fontSize: 18),
-              ),
+            content: Text(
+              text,
+              style: const TextStyle(fontSize: 18),
             ),
             title: const Text(
               "Spotkam",
@@ -767,11 +765,11 @@ class _CameraScreenState extends State<CameraScreen> {
     );
   }
 
-  saveVideo(String? recordedVideo) async {
-    // GallerySaver.saveVideo(recordedVideo).then((String path) {
-    //   setState(() {
-    //     print('video saved!');
-    //   });
-    // });
+  saveVideo(String recordedVideo) async {
+    GallerySaver.saveVideo(recordedVideo).then((path) {
+      setState(() {
+        print('video saved!');
+      });
+    });
   }
 }
